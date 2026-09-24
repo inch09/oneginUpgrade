@@ -36,7 +36,7 @@ int comparatorPtrOfStrUp(const void* a, const void* b);
 int strCmpWithoutPunctuationAndRegister(const char* str1, const char* str2);
 int strCmpWithoutPunctuationAndRegisterReverse(const char* str1, const char* str2);
 
-int main(int argc, char* argv[]){
+int main(){
     const char* fileName = "Eugene_Onegin.txt";
     assert(fileName != NULL);
 
