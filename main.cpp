@@ -32,21 +32,30 @@ int comparatorPtrOfStrUp(const void* a, const void* b);
 int strCmpWithoutPunctuationAndRegister(const char* str1, const char* str2);
 int strCmpWithoutPunctuationAndRegisterReverse(const char* str1, const char* str2);
 
-int main(){
-    const char* fileName = "Eugene_Onegin.txt";
-    assert(fileName != NULL);
+int main(int argc, char* argv[]){
 
-    size_t fileSize = getfileSize(fileName);
-    int fileDesc = open(fileName, O_RDONLY);
+    char* defaultNameFile = "Eugene_Onegin.txt";
+    char* fileName = NULL;
+    if(argc > 1){
+        fileName = argv[1];
+        assert(fileName != NULL);
+    }
+    else{
+        fileName = defaultNameFile;
+    }
+
+    assert(fileName != NULL);
+    size_t fileSize = getfileSize((const char*) fileName);
+    int fileDesc = open((const char*) fileName, O_RDONLY);
     assert(fileDesc >= 0);
 
     Text text = {}; 
     setTextCharacter(&text, fileSize, fileDesc);
-    assert(text.arrOfStrPtr != NULL);
 
     FILE* filePtr = fopen("oneginSort.txt", "w");
     assert(filePtr != NULL);
 
+    assert(text.arrOfStrPtr != NULL);
     qSort(text.arrOfStrPtr, text.numLines, sizeof(text.arrOfStrPtr[0]), wordsComparatorUp);
     printLinesInFile(filePtr, text.arrOfStrPtr, text.numLines);
 
@@ -89,8 +98,10 @@ void convertTextIntoArrOfStrPtr(char* text, char** arrOfStrPtr, size_t realSizeT
     size_t indexOfStr = 1;
     size_t i = 0;
     while(i < realSizeText && indexOfStr < numLines){
+
         assert(i < realSizeText);
         assert(indexOfStr < numLines);
+
         if(text[i] == '\0'){
             //printf("\nplus one slash 0, i = %d\n", i);
             arrOfStrPtr[indexOfStr] = &text[i + 1];
@@ -108,15 +119,19 @@ void convertTextIntoArrOfStrPtr(char* text, char** arrOfStrPtr, size_t realSizeT
 
 void printLines(char** arrOfStrPtr, size_t numLines){
     assert(arrOfStrPtr != NULL);
+
     for(size_t i = 0; i < numLines; i++){
         //printf("\n%d\n", i);
+
         assert(i < numLines);
         assert(arrOfStrPtr[i] != NULL);
+
         size_t lengthOfElemArrOfStrPtr = strlen(arrOfStrPtr[i]);
         //printf("%d\n", lengthOfElemArrOfStrPtr);
         //printf("\n%d\n", lengthOfElemArrOfStrPtr);
         if(!isEmptyLine(arrOfStrPtr[i])){
             for(size_t j = 0; j < lengthOfElemArrOfStrPtr; j++){
+
                 assert(j < strlen(arrOfStrPtr[i]));
                 printf("%c", arrOfStrPtr[i][j]);
             }
@@ -133,11 +148,13 @@ void printLinesInFile(FILE* filePtr, char** arrOfStrPtr, size_t numLines){
         //printf("\n%d\n", i);
         assert(arrOfStrPtr[i] != NULL);
         assert(i < numLines);
+
         size_t lengthOfElemArrOfStrPtr = strlen(arrOfStrPtr[i]);
         //printf("%d\n", lengthOfElemArrOfStrPtr);
         //printf("\n%d\n", lengthOfElemArrOfStrPtr);
         if(!isEmptyLine(arrOfStrPtr[i])){
             for(size_t j = 0; j < lengthOfElemArrOfStrPtr; j++){
+
                 assert(j < strlen(arrOfStrPtr[i]));
                 fprintf(filePtr, "%c", arrOfStrPtr[i][j]);
             }

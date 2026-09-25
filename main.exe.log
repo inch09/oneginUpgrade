@@ -11665,3 +11665,40 @@ Run file:	C:\Users\Иван\Documents\oneginUpgrade\main.exe
 Directory:	C:\Users\Иван\Documents\oneginUpgrade
 
 --------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Иван\Documents\oneginUpgrade\main.exe, файл: .\main.cpp, строка: 49, функция: int main(int, char**),
+
+Сообщение: ВНЕЗАПНО: Логическая ошибка: Неверно, что "fileDesc >= 0".
+
+#1: TXLib [Ver: 00173a, Rev: 175, Date: 2025-12-31 23:02:50 +0400], Instance: 0x004F81DC (32-bit), Flags: Cmdre0, Thread: 0x4B6C (Main), GetLastError(): 2 (Не удается найти указанный файл), errno: 2 (No such file or directory), _doserrno: 2 (No such file or directory). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x0041ECCB in C:\Users\Иван\Documents\oneginUpgrade\main.exe: main() at C:/Users/Иван/Documents/oneginUpgrade/./main.cpp:49:
+
+     47:     size_t fileSize = getfileSize((const char*) fileName);
+     48:     int fileDesc = open((const char*) fileName, O_RDONLY);
+=>   49:     assert(fileDesc >= 0);
+     50: 
+     51:     Text text = {}; 
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 175, Date: 2025-12-31 23:02:50 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\иван\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Sep 25 2026 13:08:07, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, Debug
+Started:	Sep 25 2026 13:08:17
+
+Run file:	C:\Users\Иван\Documents\oneginUpgrade\main.exe
+Directory:	C:\Users\Иван\Documents\oneginUpgrade
+
+--------------------------------------------------
