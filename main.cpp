@@ -22,10 +22,6 @@ void convertTextIntoArrOfStrPtr(char* text, char** arrOfStrPtr, size_t realSizeT
 void printLines(char** arrOfStrPtr, size_t numLines);
 void printLinesInFile(FILE* filePtr, char** arrOfStrPtr, size_t numLines);
 
-char* strCopyWithLowLetters(const char* str);
-char* strCopyWithoutPunctuationMarks(const char* str);
-char* reverseString(const char* str);
-
 bool isLetter(char c);
 bool isEmptyLine(const char* str);
 bool doesStringContainLetter(const char* str, size_t length);
@@ -48,7 +44,6 @@ int main(){
     setTextCharacter(&text, fileSize, fileDesc);
     assert(text.arrOfStrPtr != NULL);
 
-    
     FILE* filePtr = fopen("oneginSort.txt", "w");
     assert(filePtr != NULL);
 
@@ -137,6 +132,7 @@ void printLinesInFile(FILE* filePtr, char** arrOfStrPtr, size_t numLines){
     for(size_t i = 0; i < numLines; i++){
         //printf("\n%d\n", i);
         assert(arrOfStrPtr[i] != NULL);
+        assert(i < numLines);
         size_t lengthOfElemArrOfStrPtr = strlen(arrOfStrPtr[i]);
         //printf("%d\n", lengthOfElemArrOfStrPtr);
         //printf("\n%d\n", lengthOfElemArrOfStrPtr);
@@ -191,6 +187,7 @@ bool isEmptyLine(const char* str){
 
     size_t i = 0;
     while(i < strlen(str)){
+        assert(i < strlen(str));
         if(str[i] != ' '){
             return false;
         }
@@ -248,6 +245,7 @@ int strCmpWithoutPunctuationAndRegister(const char* str1, const char* str2){
     while(i1 < size1 && i2 < size2){
         assert(i1 < size1);
         assert(i2 < size2);
+
         if(isLetter(str1[i1]) && isLetter(str2[i2])){
             char c1 = (char) tolower(str1[i1]);
             char c2 = (char) tolower(str2[i2]);
@@ -271,14 +269,20 @@ int strCmpWithoutPunctuationAndRegister(const char* str1, const char* str2){
             i2++;
         }
     }
+
     assert(i1 <= size1);
     assert(i2 <= size2);
+
     if(i1 == size1){
+        assert(str2 != NULL);
+        assert(size2 >= i2);
         if(doesStringContainLetter((const char*) str2 + i2, size2 - i2)){
             return -1;
         }
     }
     if(i2 == size2){
+        assert(str1 != NULL);
+        assert(size1 >= i1);
         if(doesStringContainLetter((const char*) str1 + i1, size1 - i1)){
             return 1;
         }
@@ -324,11 +328,13 @@ int strCmpWithoutPunctuationAndRegisterReverse(const char* str1, const char* str
     }
 
     if(i2 >= 0){
+        assert(str2 != NULL);
         if(doesStringContainLetter(str2, i2 + 1)){
             return -1;
         }
     }
     else if(i1 >= 0){
+        assert(str1 != NULL);
         if(doesStringContainLetter(str1, i1 + 1)){
             return 1;
         }
